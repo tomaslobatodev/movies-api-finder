@@ -16,6 +16,6 @@ export const fetchMovies = async ({ search }) => {
       img: movie.Poster,
     }))
   } catch (error) {
-    throw new Error('Error fetching movies')
+    throw new Error('Movie not found')
   }
 }

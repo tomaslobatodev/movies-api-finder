@@ -1,8 +1,10 @@
 header {
   display: flex;
   flex-direction: column;
-  padding: 8px;
+  padding:24px;
   align-items: center;
+  height: 180px;
+  box-sizing: border-box;
 }
 
 .error-msg {

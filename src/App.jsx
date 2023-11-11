@@ -5,11 +5,13 @@ import { Movies } from './renderMovies'
 
 function App() {
   const { search, setSearch, error } = useSearch()
-  const { movies, getMovies } = useMovies({ search })
+  const { movies, getMovies, loading, notFound } = useMovies({ search })
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    getMovies({ search })
+    if (!error) {
+      getMovies({ search })
+    }
   }
 
   return (
@@ -18,17 +20,21 @@ function App() {
         <h1>Movies API Finder</h1>
         <form className="form" onSubmit={handleSubmit}>
           <input
-            style={{borderColor: error ? 'red' : 'transparent'}}
+            style={{ borderColor: error ? 'red' : 'transparent' }}
             onChange={(ev) => setSearch(ev.target.value)}
             type="text"
             placeholder="The Matrix"
           />
-          <button type='submit'>Search</button>
+          <button type="submit">Search</button>
         </form>
-        {error && <p className='error-msg'>{error}</p>}
+        {error && <p className="error-msg">{error}</p>}
       </header>
       <main>
-        <Movies movies={movies} />
+        {loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <Movies movies={movies} notFound={notFound} />
+        )}
       </main>
     </div>
   )
